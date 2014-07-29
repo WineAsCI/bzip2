@@ -1,5 +1,8 @@
---- bzip2-1.0.6/Makefile.in	1970-01-01 04:00:00 +0400
-+++ bzip2-1.0.6/Makefile.in	2011-05-21 23:10:44 +0400
+diff --git a/Makefile.in b/Makefile.in
+new file mode 100644
+index 0000000..d0937a3
+--- /dev/null
++++ b/Makefile.in
 @@ -0,0 +1,386 @@
 +# @configure_input@
 +# ------------------------------------------------------------------
@@ -12,7 +15,7 @@
 +# File: Makefile.in for autoconf configuration
 +# Contributed by Keith Marshall <keithmarshall@users.sourceforge.net>
 +#
-+# Please read the WARNING, DISCLAIMER and PATENTS sections in the 
++# Please read the WARNING, DISCLAIMER and PATENTS sections in the
 +# README file.
 +#
 +# This program is released under the terms of the license contained
@@ -140,7 +143,7 @@
 +all-bzip2-shared: bzip2-shared$(EXEEXT)
 +bzip2-shared$(EXEEXT): bzip2.c $(SOFULL)
 +	$(CC) $(PICFLAGS) -o $@ $^
-+	
++
 +$(SOFULL): $(OBJS:.$(OBJEXT)=-pic.$(OBJEXT))
 +	$(CC) -shared -Wl,-soname -Wl,$(SONAME) -o $@ $^
 +	rm -f $(SONAME); $(LN_S) $@ $(SONAME)
@@ -174,7 +177,7 @@
 +	./bzip2$(EXEEXT) -d  < ${srcdir}/sample1.bz2 > sample1.tst
 +	./bzip2$(EXEEXT) -d  < ${srcdir}/sample2.bz2 > sample2.tst
 +	./bzip2$(EXEEXT) -ds < ${srcdir}/sample3.bz2 > sample3.tst
-+	cmp ${srcdir}/sample1.bz2 sample1.rb2 
++	cmp ${srcdir}/sample1.bz2 sample1.rb2
 +	cmp ${srcdir}/sample2.bz2 sample2.rb2
 +	cmp ${srcdir}/sample3.bz2 sample3.rb2
 +	cmp sample1.tst ${srcdir}/sample1.ref
@@ -275,7 +278,7 @@
 +
 +# Housekeeping...
 +#
-+clean: 
++clean:
 +	cmp > /dev/null 2>&1 ${srcdir}/libbz2.def libbz2.def \
 +	  || rm -f libbz2.def
 +	rm -f *.$(OBJEXT) libbz2*.a $(DLLNAME)*.dll  \
@@ -373,7 +376,7 @@
 +# For rebuilding the manual from sources on Julian's SuSE 9.1 box
 +#
 +MANUAL_SRCS  =  bz-common.xsl bz-fo.xsl bz-html.xsl bzip.css \
-+		entities.xml manual.xml 
++		entities.xml manual.xml
 +
 +manual: manual.html manual.ps manual.pdf
 +
@@ -387,9 +390,12 @@
 +	${srcdir}/xmlproc.sh -html manual.xml
 +
 +# Makefile: end of file
---- bzip2-1.0.6/README.CYGMING	1970-01-01 04:00:00 +0400
-+++ bzip2-1.0.6/README.CYGMING	2011-09-02 05:22:32 +0400
-@@ -0,0 +1,49 @@
+diff --git a/README.CYGMING b/README.CYGMING
+new file mode 100644
+index 0000000..d975224
+--- /dev/null
++++ b/README.CYGMING
+@@ -0,0 +1,48 @@
 +This distribution was built using an alternate build system. The original
 +distribution used a simple Makefile, which had to be heavily customized to
 +meet the needs of modern cygwin and MinGW systems.  Furthermore, it was
@@ -438,9 +444,11 @@
 +patches (from Debian and elsewhere), installing into a local staging area,
 +and generating the mingw-get compatible installation packages.  See
 +MINGW-PATCHES/bzip2.README for more information.
-+
---- bzip2-1.0.6/aclocal.m4	1970-01-01 04:00:00 +0400
-+++ bzip2-1.0.6/aclocal.m4	2011-05-21 22:21:23 +0400
+diff --git a/aclocal.m4 b/aclocal.m4
+new file mode 100644
+index 0000000..7ac5e1f
+--- /dev/null
++++ b/aclocal.m4
 @@ -0,0 +1,115 @@
 +# aclocal.m4 -*- Autoconf -*- vim: filetype=config
 +# ------------------------------------------------------------------
@@ -453,7 +461,7 @@
 +# File: aclocal.m4 for autoconf configuration
 +# Contributed by Keith Marshall <keithmarshall@users.sourceforge.net>
 +#
-+# Please read the WARNING, DISCLAIMER and PATENTS sections in the 
++# Please read the WARNING, DISCLAIMER and PATENTS sections in the
 +# README file.
 +#
 +# This program is released under the terms of the license contained
@@ -557,8 +565,28 @@
 +])# BZIP2_AC_SUBST_DLLNAME
 +
 +# aclocal.m4: end of file
---- bzip2-1.0.6/configure.ac	1970-01-01 04:00:00 +0400
-+++ bzip2-1.0.6/configure.ac	2011-05-21 08:35:18 +0400
+diff --git a/bzip2.pc.in b/bzip2.pc.in
+new file mode 100644
+index 0000000..f226723
+--- /dev/null
++++ b/bzip2.pc.in
+@@ -0,0 +1,11 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++bindir=@bindir@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: bzip2
++Description: Lossless, block-sorting data compression
++Version: @PACKAGE_VERSION@
++Libs: -L${libdir} -lbz2
++Cflags: -I${includedir}
+diff --git a/configure.ac b/configure.ac
+new file mode 100644
+index 0000000..0874251
+--- /dev/null
++++ b/configure.ac
 @@ -0,0 +1,39 @@
 +AC_INIT([bzip2],[1.0.6])
 +# ------------------------------------------------------------------
@@ -571,7 +599,7 @@
 +# File: configure.ac for autoconf configuration
 +# Contributed by Keith Marshall <keithmarshall@users.sourceforge.net>
 +#
-+# Please read the WARNING, DISCLAIMER and PATENTS sections in the 
++# Please read the WARNING, DISCLAIMER and PATENTS sections in the
 +# README file.
 +#
 +# This program is released under the terms of the license contained
@@ -599,8 +627,11 @@
 +AC_OUTPUT
 +
 +# configure.ac: end of file
---- bzip2-1.0.6/libbz2.def.in	1970-01-01 04:00:00 +0400
-+++ bzip2-1.0.6/libbz2.def.in	2011-05-21 08:35:45 +0400
+diff --git a/libbz2.def.in b/libbz2.def.in
+new file mode 100644
+index 0000000..e233a73
+--- /dev/null
++++ b/libbz2.def.in
 @@ -0,0 +1,27 @@
 +LIBRARY			%DLLNAME%-%DLLVER%
 +DESCRIPTION		"libbzip2: library for data compression"
@@ -629,17 +660,3 @@
 +	BZ2_bzflush
 +	BZ2_bzclose
 +	BZ2_bzerror
---- bzip2-1.0.6/bzip2.pc.in.orig	1970-01-01 01:00:00.000000000 +0100
-+++ bzip2-1.0.6/bzip2.pc.in	2009-11-03 18:48:28.000000000 +0100
-@@ -0,0 +1,11 @@
-+prefix=@prefix@
-+exec_prefix=@exec_prefix@
-+bindir=@bindir@
-+libdir=@libdir@
-+includedir=@includedir@
-+
-+Name: bzip2
-+Description: Lossless, block-sorting data compression
-+Version: @PACKAGE_VERSION@
-+Libs: -L${libdir} -lbz2
-+Cflags: -I${includedir}

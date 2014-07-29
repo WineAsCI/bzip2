@@ -1,6 +1,8 @@
---- bzip2-1.0.4/bzip2recover.c.pom	2007-01-03 03:00:55.000000000 +0100
-+++ bzip2-1.0.4/bzip2recover.c	2007-02-05 11:55:17.000000000 +0100
-@@ -309,7 +309,8 @@
+diff --git a/bzip2recover.c b/bzip2recover.c
+index f9de049..d54a43d 100644
+--- a/bzip2recover.c
++++ b/bzip2recover.c
+@@ -309,7 +309,8 @@ Int32 main ( Int32 argc, Char** argv )
     UInt32      buffHi, buffLo, blockCRC;
     Char*       p;
  

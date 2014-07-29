@@ -1,5 +1,7 @@
---- bzip2-1.0.5.orig/bzgrep
-+++ bzip2-1.0.5/bzgrep
+diff --git a/bzgrep b/bzgrep
+index 9a04b83..96a7fb6 100644
+--- a/bzgrep
++++ b/bzgrep
 @@ -1,27 +1,75 @@
  #!/bin/sh
  
@@ -9,7 +11,7 @@
 -## zgrep -- a wrapper around a grep program that decompresses files as needed
 -## Adapted from a version sent by Charles Levert <charles@comm.polymtl.ca>
 +# bzgrep -- a wrapper around a grep program that decompresses files as needed
-+# Adapted from zgrep of the Debian gzip package by Anibal Monsalve Salazar. 
++# Adapted from zgrep of the Debian gzip package by Anibal Monsalve Salazar.
 +# Adapted from a version sent by Charles Levert <charles@comm.polymtl.ca>
 +
 +# Copyright (C) 1998, 2001, 2002 Free Software Foundation
@@ -85,7 +87,7 @@
    -*)	   opt="$opt $1";;
     *)      if test -z "$pat"; then
  	     pat="$1"
-@@ -35,19 +83,9 @@
+@@ -35,19 +83,9 @@ done
  if test -z "$pat"; then
    echo "grep through bzip2 files"
    echo "usage: $prog [grep_options] pattern [files]"
@@ -106,7 +108,7 @@
  if test $# -eq 0; then
    bzip2 -cdfq | $grep $opt "$pat"
    exit $?
-@@ -55,21 +93,40 @@
+@@ -55,21 +93,40 @@ fi
  
  res=0
  for i do
