@@ -1,0 +1,30 @@
+os:
+  - linux
+
+before_script:
+  - sudo add-apt-repository -y ppa:ubuntu-wine/ppa
+  - sudo add-apt-repository -y ppa:rbose-debianizer/automake
+  - sudo apt-get update -qq
+  - sudo apt-get install -y autopoint
+  - sudo apt-get install -y automake1.12
+  - sudo apt-get install -y binutils-mingw-w64-i686
+  - sudo apt-get install -y gcc-mingw-w64-i686
+  - sudo apt-get install -y wine1.7
+
+language: c
+
+compiler:
+  - gcc
+
+script:
+  - cd bzip2
+  - git apply ../patches/*.txt
+  - unset CC
+  - sudo update-binfmts --disable wine
+  - export CC=i686-w64-ming32-gcc
+  - make
+  - sudo update-binfmts --enable wine
+  - wineboot
+  - export EXEEXT=.exe
+  - export WINEDEBUG=-all
+  - make winetest

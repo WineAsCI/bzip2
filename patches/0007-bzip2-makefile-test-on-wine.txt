@@ -1,0 +1,46 @@
+diff --git a/Makefile b/Makefile
+index 9754ddf..2fb2862 100644
+--- a/Makefile
++++ b/Makefile
+@@ -15,8 +15,6 @@
+ SHELL=/bin/sh
+ 
+ # To assist in cross-compiling
+-CC=gcc
+-AR=ar
+ RANLIB=ranlib
+ LDFLAGS=
+ 
+@@ -35,7 +33,7 @@ OBJS= blocksort.o  \
+       decompress.o \
+       bzlib.o
+ 
+-all: libbz2.a bzip2 bzip2recover test
++all: libbz2.a bzip2 bzip2recover
+ 
+ bzip2: libbz2.a bzip2.o
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o bzip2 bzip2.o -L. -lbz2
+@@ -69,6 +67,23 @@ test: bzip2
+ 	cmp sample3.tst sample3.ref
+ 	@cat words3
+ 
++winetest: bzip2
++	cp ./bzip2 ./bzip2.exe
++	@cat words1
++	wine ./bzip2.exe -1  < sample1.ref > sample1.rb2
++	wine ./bzip2.exe -2  < sample2.ref > sample2.rb2
++	wine ./bzip2.exe -3  < sample3.ref > sample3.rb2
++	wine ./bzip2.exe -d  < sample1.bz2 > sample1.tst
++	wine ./bzip2.exe -d  < sample2.bz2 > sample2.tst
++	wine ./bzip2.exe -ds < sample3.bz2 > sample3.tst
++	cmp sample1.bz2 sample1.rb2
++	cmp sample2.bz2 sample2.rb2
++	cmp sample3.bz2 sample3.rb2
++	cmp sample1.tst sample1.ref
++	cmp sample2.tst sample2.ref
++	cmp sample3.tst sample3.ref
++	@cat words3
++
+ install: bzip2 bzip2recover
+ 	if ( test ! -d $(PREFIX)/bin ) ; then mkdir -p $(PREFIX)/bin ; fi
+ 	if ( test ! -d $(PREFIX)/lib ) ; then mkdir -p $(PREFIX)/lib ; fi
