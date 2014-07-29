@@ -8,8 +8,7 @@ before_script:
   - sudo apt-get install -y autopoint
   - sudo apt-get install -y automake1.12
   - sudo apt-get install -y binutils-mingw-w64-i686
-  - sudo apt-get install -y gcc-mingw-w64-i686
-  - sudo apt-get install -y wine1.7
+  - sudo apt-get install -y gcc-mingw-w64-i686 mingw-w64-tools
 
 language: c
 
@@ -19,10 +18,11 @@ compiler:
 script:
   - cd bzip2
   - git apply ../patches/*.txt
-  - unset CC
-  - sudo update-binfmts --disable wine
-  - export CC=i686-w64-ming32-gcc
+  - export CC=i686-w64-mingw32-gcc
+  - export AR=i686-w64-mingw32-ar
   - make
+  - sudo apt-get install -y wine1.7
+  - sudo update-binfmts --disable wine
   - sudo update-binfmts --enable wine
   - wineboot
   - export EXEEXT=.exe
