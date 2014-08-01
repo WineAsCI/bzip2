@@ -23,6 +23,7 @@ script:
   - export RANLIB=i686-w64-mingw32-ranlib
   - export RC=i686-w64-mingw32-windres
   - sudo apt-get install -y wine1.7
+  - sudo update-binfmts --disable wine
   - sudo update-binfmts --enable wine
   - wineboot
   - export EXEEXT=.exe
